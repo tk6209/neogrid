@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoGrid Cartão Pix — O Futuro dos Pagamentos Instantâneos</title>
+  <meta name="description" content="NeoGrid Cartão Pix: A união da velocidade instantânea do Pix BACEN com a usabilidade por aproximação (NFC/EMV) dos cartões físicos e digitais.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            pix: '#32bcad',
+            'pix-dark': '#1e8e82',
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            },
+            mesh: {
+              bg: '#0a0d14',
+              card: '#111726',
+              border: '#1f293d',
+              accent: '#38bdf8'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    body {
+      background-color: #080b11;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .mesh-gradient {
+      background: radial-gradient(circle at 50% -20%, rgba(50, 188, 173, 0.18) 0%, rgba(14, 165, 233, 0.08) 40%, rgba(8, 11, 17, 0) 75%);
+    }
+    .glass-card {
+      background: rgba(17, 23, 38, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .glass-card:hover {
+      border-color: rgba(50, 188, 173, 0.35);
+      box-shadow: 0 20px 40px -15px rgba(50, 188, 173, 0.15);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 25px rgba(50, 188, 173, 0.4);
+    }
+    .pulse-slow {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="selection:bg-pix selection:text-slate-900">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-mesh-border/80 bg-mesh-bg/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pix to-mesh-accent flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg shadow-pix/20">
+          N
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
+            NeoGrid <span class="text-xs px-2 py-0.5 rounded-full bg-pix/20 text-pix border border-pix/30 font-semibold uppercase tracking-wider">Cartão Pix</span>
+          </span>
+          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Next-Gen Payment Rails</p>
+        </div>
+      </div>
+      
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+        <a href="#proposta" class="hover:text-pix transition-colors">Visão & Mercado</a>
+        <a href="#pilares" class="hover:text-pix transition-colors">Os 3 Pilares</a>
+        <a href="#fluxo" class="hover:text-pix transition-colors">Fluxo NFC</a>
+        <a href="#desenvolvedores" class="hover:text-pix transition-colors">APIs & Mesh</a>
+        <a href="#simulador" class="hover:text-pix transition-colors">Simulador</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <a href="https://github.com/tk6209/neogrid" target="_blank" class="px-4 py-2 rounded-lg text-xs font-semibold text-slate-200 border border-slate-700 hover:border-pix hover:text-pix transition-all flex items-center gap-2">
+          <i data-lucide="github" class="w-4 h-4"></i> GitHub
+        </a>
+        <a href="#simulador" class="px-4 py-2 rounded-lg text-xs font-semibold bg-gradient-to-r from-pix to-teal-500 text-slate-950 hover:brightness-110 transition-all shadow-md shadow-pix/20 flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-3.5 h-3.5"></i> Testar Transação
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-36 pb-24 overflow-hidden mesh-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mesh-card border border-pix/30 text-pix text-xs font-semibold uppercase tracking-wider mb-8">
+        <span class="w-2 h-2 rounded-full bg-pix animate-ping"></span>
+        Interoperabilidade Físico-Digital BACEN
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+        A fluidez do <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pix to-emerald-400">Cartão NFC</span> com a liquidação instantânea do <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-pix">Pix</span>.
+      </h1>
+
+      <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed">
+        O <strong>NeoGrid Cartão Pix</strong> elimina a fricção de abrir o app bancário e escanear QR Code no checkout físico. 
+        O consumidor apenas aproxima o cartão ou smartphone na maquininha, e o valor é liquidado instantaneamente nos trilhos do Pix — com taxa reduzida para o varejista e recebimento em tempo real.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="#fluxo" class="px-8 py-3.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-pix to-teal-400 hover:brightness-110 transition shadow-lg shadow-pix/25 flex items-center gap-2">
+          <i data-lucide="smartphone-nfc" class="w-5 h-5"></i> Explorar Jornada NFC
+        </a>
+        <a href="#pilares" class="px-8 py-3.5 rounded-xl font-semibold text-slate-300 glass-card hover:text-white hover:border-slate-500 transition flex items-center gap-2">
+          <i data-lucide="layers" class="w-5 h-5"></i> Conhecer Arquitetura
+        </a>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div class="glass-card p-6 rounded-2xl text-left border-l-4 border-l-pix">
+          <p class="text-xs uppercase font-mono text-slate-400">Tempo de Autorização</p>
+          <p class="text-3xl font-extrabold text-white mt-2">&lt; 400ms</p>
+          <p class="text-[11px] text-slate-400 mt-1">NFC Contactless + Mesh Edge</p>
+        </div>
+        <div class="glass-card p-6 rounded-2xl text-left border-l-4 border-l-cyan-400">
+          <p class="text-xs uppercase font-mono text-slate-400">Liquidação Financeira</p>
+          <p class="text-3xl font-extrabold text-white mt-2">D+0</p>
+          <p class="text-[11px] text-slate-400 mt-1">Crédito imediato na conta do varejista</p>
+        </div>
+        <div class="glass-card p-6 rounded-2xl text-left border-l-4 border-l-emerald-400">
+          <p class="text-xs uppercase font-mono text-slate-400">Economia em Taxas (MDR)</p>
+          <p class="text-3xl font-extrabold text-white mt-2">-70%</p>
+          <p class="text-[11px] text-slate-400 mt-1">Redução drástica comparado ao débito clássico</p>
+        </div>
+        <div class="glass-card p-6 rounded-2xl text-left border-l-4 border-l-teal-400">
+          <p class="text-xs uppercase font-mono text-slate-400">Autenticação</p>
+          <p class="text-3xl font-extrabold text-white mt-2">FIDO2</p>
+          <p class="text-[11px] text-slate-400 mt-1">Passkeys + Biometria comportamental</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Problem & Solution Section -->
+  <section id="proposta" class="py-20 border-t border-mesh-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-pix">O Ponto de Inflexão da Indústria</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">A Fricção do QR Code vs. A Eficiência do Plástico/NFC</h2>
+        <p class="text-slate-400 mt-4 leading-relaxed">
+          Embora o Pix responda pela maioria das transações no Brasil, o uso presencial ainda sofre com o atrito: 
+          o cliente precisa desbloquear o celular, abrir o app do banco, aguardar o sinal de dados e ler o QR Code. 
+          O <strong>NeoGrid Cartão Pix</strong> soluciona isso unificando o melhor dos dois mundos.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Dilema QR Code Tradicional -->
+        <div class="glass-card p-8 rounded-2xl border-rose-900/30 bg-gradient-to-b from-rose-950/20 to-transparent">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center mb-6">
+            <i data-lucide="clock-alert" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white">O Gargalo do QR Code no Checkout</h3>
+          <ul class="mt-6 space-y-4 text-slate-300 text-sm">
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+              <span><strong>Atrito no Ponto de Venda:</strong> Fila parada enquanto o cliente busca sinal 4G/5G, abre aplicativo do banco e confirma biometria.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+              <span><strong>Insegurança em Ambientes Abertos:</strong> Expor o celular desbloqueado em vias públicas ou lojas movimentadas gera apreensão.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+              <span><strong>Apenas 5% a 10% no Varejo Físico:</strong> O QR Code ainda é minoritário no caixa presencial devido à baixa velocidade comparada à aproximação.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- A Solução NeoGrid Cartão Pix -->
+        <div class="glass-card p-8 rounded-2xl border-pix/40 bg-gradient-to-b from-pix/10 to-transparent">
+          <div class="w-12 h-12 rounded-xl bg-pix/20 text-pix flex items-center justify-center mb-6">
+            <i data-lucide="check-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white">A Solução: NeoGrid Cartão Pix</h3>
+          <ul class="mt-6 space-y-4 text-slate-300 text-sm">
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-pix shrink-0 mt-0.5"></i>
+              <span><strong>Usabilidade Idêntica ao Cartão de Débito:</strong> Basta aproximar o cartão físico ou smartphone no POS (Point of Sale) já existente.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-pix shrink-0 mt-0.5"></i>
+              <span><strong>Trilhos Instantâneos SPI / BACEN:</strong> Liquidação imediata direto na conta do recebedor, sem esperar D+1 ou antecipação cara.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-pix shrink-0 mt-0.5"></i>
+              <span><strong>Zero Custo de Novo Hardware:</strong> Funciona nos mesmos terminais POS já instalados na base de adquirentes do mercado.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Os 3 Pilares da Arquitetura -->
+  <section id="pilares" class="py-20 border-t border-mesh-border relative bg-mesh-card/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-pix">Arquitetura de Alta Performance</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">A Tríade Tecnológica do NeoGrid</h2>
+        <p class="text-slate-400 mt-4 leading-relaxed">
+          Para suportar milhões de transações simultâneas com SLA de 99.999% e latência submilisegundo, o projeto é estruturado em três motores complementares:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Pilar 1: NeoCore -->
+        <div class="glass-card p-8 rounded-2xl relative group">
+          <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="cpu" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-mono text-teal-400 tracking-wider uppercase font-semibold">Motor Transacional</span>
+          <h3 class="text-2xl font-bold text-white mt-1">NeoCore™</h3>
+          <p class="text-slate-400 text-sm mt-4 leading-relaxed">
+            O coração transacional responsável pela <strong>tokenização EMV/NFC</strong>, mapeamento dinâmico de chaves Pix e orquestração da liquidação no Sistema de Pagamentos Instantâneos (SPI).
+          </p>
+          <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
+            <div>✓ ISO 8583 / ISO 20022 Protocol Bridge</div>
+            <div>✓ Token Vault & PAN Mapping</div>
+            <div>✓ Sub-second Clearing Engine</div>
+          </div>
+        </div>
+
+        <!-- Pilar 2: NeoGrid Mesh -->
+        <div class="glass-card p-8 rounded-2xl relative group border-pix/30">
+          <div class="w-14 h-14 rounded-2xl bg-pix/10 border border-pix/30 text-pix flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="network" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-mono text-pix tracking-wider uppercase font-semibold">Roteamento Distribuído</span>
+          <h3 class="text-2xl font-bold text-white mt-1">NeoGrid Mesh™</h3>
+          <p class="text-slate-400 text-sm mt-4 leading-relaxed">
+            Control plane descentralizado e roteador de borda com <strong>Dynamic Database Sharding</strong>. Isola tenants de alta volumetria (adquirentes e grandes emissores) mantendo alta disponibilidade.
+          </p>
+          <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
+            <div>✓ Edge Handshake via Supabase Deno</div>
+            <div>✓ Dynamic Search Path & Schema Shards</div>
+            <div>✓ Multi-region L5 Tenant Isolation</div>
+          </div>
+        </div>
+
+        <!-- Pilar 3: NeoGraph -->
+        <div class="glass-card p-8 rounded-2xl relative group">
+          <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="shield-alert" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-mono text-sky-400 tracking-wider uppercase font-semibold">Confiança Invisível</span>
+          <h3 class="text-2xl font-bold text-white mt-1">NeoGraph™</h3>
+          <p class="text-slate-400 text-sm mt-4 leading-relaxed">
+            Grafo cognitivo de risco e telemetria comportamental. Avalia geolocalização, perfil de gasto, integridade do dispositivo e autenticação <strong>FIDO2 / Passkeys</strong> sem interromper a jornada.
+          </p>
+          <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
+            <div>✓ FIDO2 / WebAuthn Silent Challenge</div>
+            <div>✓ Ingestão Contínua de Heatmaps</div>
+            <div>✓ Real-time Behavioral Fraud Shield</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Transaction Flow -->
+  <section id="fluxo" class="py-20 border-t border-mesh-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-pix">Jornada End-to-End</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Como Funciona a Transação no Terminal</h2>
+        <p class="text-slate-400 mt-4 leading-relaxed">
+          Do toque do cartão no leitor NFC até a liquidação no Banco Central e confirmação em tela:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+        
+        <!-- Step 1 -->
+        <div class="glass-card p-6 rounded-2xl relative">
+          <div class="w-8 h-8 rounded-full bg-pix/20 text-pix font-mono font-bold flex items-center justify-center mb-4">1</div>
+          <h4 class="font-bold text-white text-lg flex items-center gap-2">
+            <i data-lucide="contactless" class="w-5 h-5 text-pix"></i> Toque Contactless
+          </h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            O portador aproxima o cartão físico ou smartphone no leitor NFC do POS convencional. O terminal lê o Token Seguro compatível com a norma EMV contactless.
+          </p>
+          <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Latência: ~80ms</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card p-6 rounded-2xl relative">
+          <div class="w-8 h-8 rounded-full bg-pix/20 text-pix font-mono font-bold flex items-center justify-center mb-4">2</div>
+          <h4 class="font-bold text-white text-lg flex items-center gap-2">
+            <i data-lucide="split" class="w-5 h-5 text-mesh-accent"></i> Roteamento Mesh
+          </h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            O <strong>NeoGrid Mesh™</strong> recebe a chamada via API/Adquirente, valida a chave de API criptografada e direciona a requisição ao Shard do emissor instantaneamente.
+          </p>
+          <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Latência: ~30ms</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card p-6 rounded-2xl relative">
+          <div class="w-8 h-8 rounded-full bg-pix/20 text-pix font-mono font-bold flex items-center justify-center mb-4">3</div>
+          <h4 class="font-bold text-white text-lg flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> NeoCore & NeoGraph
+          </h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            O <strong>NeoCore</strong> destokeniza o identificador seguro enquanto o <strong>NeoGraph</strong> avalia os sinais de risco e biometria silenciosa, aprovando o pagamento.
+          </p>
+          <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Latência: ~90ms</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-card p-6 rounded-2xl relative">
+          <div class="w-8 h-8 rounded-full bg-pix/20 text-pix font-mono font-bold flex items-center justify-center mb-4">4</div>
+          <h4 class="font-bold text-white text-lg flex items-center gap-2">
+            <i data-lucide="banknote" class="w-5 h-5 text-teal-400"></i> Liquidação SPI
+          </h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            A transação é liquidada instantaneamente via trilhos Pix do Banco Central. O comprovante sai na maquininha e o dinheiro entra na conta do lojista na mesma hora.
+          </p>
+          <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Total: &lt; 350ms</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Terminal Simulator -->
+  <section id="simulador" class="py-20 border-t border-mesh-border relative bg-mesh-card/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-pix">Simulador Interativo</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Experimente uma Transação Cartão Pix em Tempo Real</h2>
+        <p class="text-slate-400 mt-4 leading-relaxed">
+          Simule o fluxo de aproximação NFC, autorização no Mesh e liquidação nos trilhos do Pix BACEN:
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
+        <!-- Interactive Terminal UI -->
+        <div class="glass-card p-8 rounded-3xl border border-slate-700/80 shadow-2xl relative overflow-hidden">
+          <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+            </div>
+            <span class="font-mono text-xs text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="wifi" class="w-3.5 h-3.5 text-pix"></i> Terminal POS NeoGrid #8921
+            </span>
+          </div>
+
+          <!-- Display Maquininha -->
+          <div class="mt-6 p-6 rounded-2xl bg-slate-950 border border-slate-800 text-center" id="posScreen">
+            <p class="text-xs font-mono text-slate-400 uppercase tracking-widest" id="posHeader">Valor da Compra</p>
+            <p class="text-4xl font-mono font-extrabold text-pix mt-2" id="posAmount">R$ 84,50</p>
+            <div class="mt-4 flex items-center justify-center gap-2 text-xs font-medium text-slate-300" id="posStatus">
+              <i data-lucide="smartphone-nfc" class="w-4 h-4 text-pix animate-bounce"></i> Aproxime o Cartão ou Celular
+            </div>
+          </div>
+
+          <!-- Simulators Inputs -->
+          <div class="mt-6 space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1">Valor da Operação (R$)</label>
+              <input type="number" id="inputValor" value="84.50" step="0.50" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:outline-none focus:border-pix">
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1">Tipo de Credencial</label>
+              <select id="inputCredencial" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:outline-none focus:border-pix">
+                <option value="card_physical">Cartão Físico Pix Contactless (Dual Chip)</option>
+                <option value="wallet_nfc">Carteira Digital (Apple Pay / Google Wallet NFC)</option>
+                <option value="wearable">Wearable (Pulseira NFC / Smartwatch)</option>
+              </select>
+            </div>
+
+            <button onclick="executarSimulacao()" id="btnAproximar" class="w-full py-3.5 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-pix to-teal-400 hover:brightness-110 transition shadow-lg shadow-pix/20 flex items-center justify-center gap-2">
+              <i data-lucide="radio" class="w-5 h-5"></i> Aproximar Cartão Agora
+            </button>
+          </div>
+        </div>
+
+        <!-- Telemetry & Response Console -->
+        <div class="glass-card p-6 rounded-3xl border border-slate-800 bg-slate-950/70 font-mono text-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <span class="text-slate-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+              <i data-lucide="terminal" class="w-4 h-4 text-pix"></i> Telemetria do Shard
+            </span>
+            <span id="badgeStatus" class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400">IDLE</span>
+          </div>
+
+          <pre id="consoleLogs" class="mt-4 text-slate-300 h-64 overflow-y-auto whitespace-pre-wrap leading-relaxed">
+[System] NeoGrid Mesh Edge Controller pronto.
+[Config] Shard Alvo: shard_br_saopaulo_01
+[Config] BACEN SPI Mock Rails: Conectado
+[Status] Aguardando sinal contactless NFC...
+          </pre>
+
+          <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center text-[11px] text-slate-400">
+            <span>Latência média: <strong class="text-pix font-bold">248ms</strong></span>
+            <span>Segurança: <strong class="text-emerald-400 font-bold">FIDO2 / EMV Level 1</strong></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Developer API & Contracts Section -->
+  <section id="desenvolvedores" class="py-20 border-t border-mesh-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-pix">Developer Ready</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">APIs Públicas & Contratos OpenAPI</h2>
+          <p class="text-slate-400 mt-2 max-w-2xl">
+            Pronto para integração com adquirentes, gateways, BaaS (Banking as a Service) e emissores de cartões.
+          </p>
+        </div>
+        <div class="mt-6 md:mt-0">
+          <a href="https://github.com/tk6209/neogrid" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 hover:border-pix text-slate-200 text-xs font-semibold flex items-center gap-2 transition">
+            <i data-lucide="file-code" class="w-4 h-4 text-pix"></i> Ver Contrato OpenAPI no GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md bg-blue-500/20 text-blue-400 font-mono text-[11px] font-bold">POST</span>
+            <span class="text-xs font-mono text-slate-400">/fido2-auth-options</span>
+          </div>
+          <h4 class="font-bold text-white mt-4 text-base">Cerimônia de Passkey FIDO2</h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Inicia o desafio criptográfico (challenge) do WebAuthn/FIDO2 para validação biométrica do portador sem envio de senhas.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-400 font-mono text-[11px] font-bold">POST</span>
+            <span class="text-xs font-mono text-slate-400">/fido2-verify</span>
+          </div>
+          <h4 class="font-bold text-white mt-4 text-base">Verificação de Assinatura</h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Validação da assinatura criptográfica e autorização de débito instantâneo nos trilhos do Pix.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-400 font-mono text-[11px] font-bold">POST</span>
+            <span class="text-xs font-mono text-slate-400">/heatmap-ingest</span>
+          </div>
+          <h4 class="font-bold text-white mt-4 text-base">Telemetria & Risco Contínuo</h4>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Ingestão assíncrona de sinais comportamentais, latência e telemetria de POS para a inteligência de risco do NeoGraph.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-mesh-border py-12 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-pix to-mesh-accent flex items-center justify-center font-bold text-slate-950 text-sm">
+          N
+        </div>
+        <div>
+          <span class="text-sm font-bold text-white">NeoGrid Cartão Pix</span>
+          <p class="text-[11px] text-slate-500">Desenvolvido por Vinicius Teixeira • Autoral & Open Protocol</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-6 text-xs text-slate-400 font-medium">
+        <a href="#proposta" class="hover:text-pix transition">Visão</a>
+        <a href="#pilares" class="hover:text-pix transition">Pilares</a>
+        <a href="#fluxo" class="hover:text-pix transition">Fluxo</a>
+        <a href="https://github.com/tk6209/neogrid" target="_blank" class="hover:text-pix transition flex items-center gap-1">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i> Repositório
+        </a>
+      </div>
+
+      <div class="text-[11px] text-slate-500 font-mono">
+        &copy; 2026 NeoGrid Protocol. Licença Aberta.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    lucide.createIcons();
+
+    function formatCurrency(val) {
+      return Number(val).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    const inputVal = document.getElementById('inputValor');
+    inputVal.addEventListener('input', (e) => {
+      const v = parseFloat(e.target.value) || 0;
+      document.getElementById('posAmount').innerText = formatCurrency(v);
+    });
+
+    async function executarSimulacao() {
+      const btn = document.getElementById('btnAproximar');
+      const posStatus = document.getElementById('posStatus');
+      const posHeader = document.getElementById('posHeader');
+      const badge = document.getElementById('badgeStatus');
+      const logs = document.getElementById('consoleLogs');
+      const valor = parseFloat(inputVal.value) || 50;
+      const cred = document.getElementById('inputCredencial').value;
+
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      badge.innerText = 'PROCESSING';
+      badge.className = 'px-2 py-0.5 rounded text-[10px] bg-yellow-500/20 text-yellow-300 font-bold';
+
+      logs.innerText = `[${new Date().toLocaleTimeString()}] >>> INICIANDO LEITURA NFC...\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] Dispositivo detectado: ${cred.toUpperCase()}\n`;
+      posStatus.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 text-pix animate-spin"></i> Lendo chip contactless...`;
+      lucide.createIcons();
+
+      await new Promise(r => setTimeout(r, 600));
+
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGrid Mesh: Roteando para shard_br_saopaulo_01 (Tenant Auth)\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoCore: Token EMV validado. Chave Pix mapeada com sucesso.\n`;
+      posStatus.innerHTML = `<i data-lucide="cpu" class="w-4 h-4 text-teal-400 animate-spin"></i> Conectando ao Banco Central (SPI)...`;
+      lucide.createIcons();
+
+      await new Promise(r => setTimeout(r, 700));
+
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGraph: Score de risco 0.02 (Transação Segura / FIDO2 Tokenized)\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] BACEN SPI: EndToEndId E00038166${Date.now()} gerado.\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] Liquidação: R$ ${valor.toFixed(2)} transferido instantaneamente (D+0)!\n`;
+
+      posHeader.innerText = 'TRANSAÇÃO APROVADA!';
+      posStatus.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Pagamento Pix Concluído</span>`;
+      badge.innerText = 'SUCCESS 200';
+      badge.className = 'px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-bold';
+      lucide.createIcons();
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        posHeader.innerText = 'Valor da Compra';
+        posStatus.innerHTML = `<i data-lucide="smartphone-nfc" class="w-4 h-4 text-pix animate-bounce"></i> Aproxime o Cartão ou Celular`;
+        lucide.createIcons();
+      }, 4500);
+    }
+  </script>
+</body>
+</html>
