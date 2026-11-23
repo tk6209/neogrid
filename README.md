@@ -1,6 +1,6 @@
 # NeoGrid NexaPay 💳⚡
 
-> **A união da fluidez da aproximação (NFC/EMV) dos cartões físicos com a liquidação instantânea e baixo custo dos trilhos do Pix (Banco Central do Brasil).**
+> **Iniciação de pagamentos conta-a-conta por aproximação física (NFC) com prova criptográfica em módulo seguro e liquidação instantânea D+0 nos trilhos do SPI BACEN.**
 
 ---
 
@@ -8,37 +8,46 @@
 
 No varejo físico atual, o Pix ainda enfrenta uma barreira de usabilidade: a dependência de desbloquear o smartphone, abrir o aplicativo bancário, escanear um QR Code e depender de sinal de dados móveis no checkout.
 
-O **NeoGrid NexaPay** remove essa fricção:
-- **Zero Fricção para o Consumidor**: Basta aproximar o cartão físico ou smartphone no leitor NFC do terminal POS convencional.
+O **NeoGrid NexaPay** remove essa fricção através de uma arquitetura unificada:
+- **Zero Fricção para o Consumidor**: Basta aproximar o cartão físico inteligente ou wearable no leitor NFC do terminal POS convencional.
 - **Liquidação Instantânea D+0**: O lojista recebe os fundos imediatamente na conta via SPI (Sistema de Pagamentos Instantâneos).
-- **Redução Drástica em Taxas (MDR)**: Economia de até 70% comparado às taxas convencionais de débito e crédito das bandeiras tradicionais.
+- **Sem Intermediários de Bandeira**: Dispensa tabelas BIN proprietárias e taxas abusivas de arranjos legados.
 - **Aproveitamento da Infraestrutura Existente**: Opera diretamente nos terminais POS já instalados no mercado nacional.
 
 ---
 
-## 🏛️ Os Três Pilares da Arquitetura
+## 🏛️ Área Única NeoGrid: Os Dois Fluxos de Iniciação
+
+A plataforma **NeoGrid** opera como uma camada única de iniciação e roteamento institucional, suportando duas modalidades complementares:
 
 ```
-+-------------------------------------------------------------+
-|                     NeoGrid NexaPay                      |
-+-------------------------------------------------------------+
-           |                         |                       |
-           v                         v                       v
-     [ NeoCore™ ]            [ NeoGrid Mesh™ ]         [ NeoGraph™ ]
-  Motor Transacional        Roteamento Distribuído   Confiança Invisível
-  - Tokenização EMV/NFC     - Sharding Dinâmico L5   - FIDO2 / Passkeys
-  - De-tokenização & SPI    - Multi-tenant Edge      - Telemetria de Risco
-  - Liquidação BACEN D+0    - Controle de Latência   - Antifraude Contínuo
++-------------------------------------------------------------------+
+|                        Área Única NeoGrid                         |
+|            (Módulo de Iniciação & Roteamento Institucional)       |
++-------------------------------------------------------------------+
+                     |                                   |
+                     v                                   v
+       [ Iniciação Direta SPI ]              [ Iniciação Open Finance ]
+     - Iniciação Delegada (Novidade)        - Via Iniciador (ITP) habilitado
+     - pacs.008 direta ao SPI               - APIs /payments/v4 padronizadas
+     - Consumo durável de frescor           - Consentimento e credencial vinculada
+     - Resolução Soberana por ISPB          - Detentor de conta liquida no SPI
 ```
 
-### 1. NeoCore™
-Motor transacional responsável pela ponte de protocolos entre a norma EMV Contactless (ISO 8583) e as mensagens XML/JSON do SPI BACEN (ISO 20022). Realiza o cofre de tokenização seguro, mapeamento dinâmico de chaves Pix e orquestração de liquidação financeira.
+### 1. Iniciação Delegada via SPI (pacs.008) — Novidade
+O participante pagador habilitado recebe a prova criptográfica gerada pelo chip seguro no ato da aproximação física no terminal POS. 
+Com a **autorização delegada previamente outorgada** pelo portador, o nó pagador valida a assinatura, realiza o **consumo atômico e durável do valor de frescor (contador monotônico)** em memória local para defesa anti-replay, e submete diretamente a ordem **pacs.008** ao SPI BACEN, obtendo confirmação D+0 (`pacs.002`).
 
-### 2. NeoGrid Mesh™
-Camada de Control Plane e roteamento distribuído de alta disponibilidade. Utiliza Dynamic Database Sharding para isolar inquilinos de alto volume transacional (adquirentes e grandes emissores) com failover automático e latência de borda de sub-milissegundos.
+### 2. Iniciação via Open Finance (ITP)
+A requisição é estruturada pelo NeoGrid e submetida através de um **Iniciador de Transação de Pagamento (ITP)** regulado perante o Open Finance Brasil. A instituição detentora da conta valida o vínculo da credencial física, consome o frescor na máquina de estados e dispara a liquidação instantânea no SPI.
 
-### 3. NeoGraph™
-Motor de Inteligência de Risco e Confiança Invisível (*Invisible Trust*). Aplica biometria comportamental, telemetria de POS e cerimônias silenciosas FIDO2/WebAuthn para garantir risco zero de fraude e mitigar engenharia social sem introduzir etapas de atrito ao portador.
+---
+
+## 🔒 Segurança Criptográfica & Resolução Soberana
+- **Chave Não Exportável**: O material criptográfico secreto reside no módulo seguro (EAL5+) e nunca é exposto ao terminal ou à rede.
+- **Resolução por ISPB**: A instituição pagadora é identificada pelo seu código de 8 dígitos (ISPB) resolvido em diretório soberano nacional, sem intermediários.
+- **Defesa Anti-Replay**: Consumo prévio e durável de frescor antes da submissão da ordem financeira.
+- **Idempotência**: Identificador único de transação garante que nenhuma operação duplicada ocorra mesmo com instabilidade de rede.
 
 ---
 
@@ -50,21 +59,7 @@ Como o projeto é construído em padrões web modernos e leves, basta abrir o ar
 # Com Python
 python -m http.server 8080
 
-# Ou com Node / npx
+# Ou com Node.js npx
 npx serve .
 ```
-
-Acesse em: `http://localhost:8080`
-
----
-
-## 🌐 Publicação no GitHub Pages
-
-O site é automaticamente compilado e publicado no GitHub Pages:
-🔗 **[https://tk6209.github.io/neogrid/](https://tk6209.github.io/neogrid/)**
-
----
-
-## 📄 Licença e Autoria
-Desenvolvido por **Vinicius Teixeira**.  
-Todos os direitos reservados / Open Architecture Protocol 2026.
+Acesse `http://localhost:8080` para visualizar a página interativa e o simulador do terminal POS.

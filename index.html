@@ -135,7 +135,7 @@
           <i data-lucide="smartphone-nfc" class="w-5 h-5"></i> Explorar Jornada NFC
         </a>
         <a href="#pilares" class="px-8 py-3.5 rounded-xl font-semibold text-slate-300 glass-card hover:text-white hover:border-slate-500 transition flex items-center gap-2">
-          <i data-lucide="layers" class="w-5 h-5"></i> Conhecer Arquitetura
+          <i data-lucide="layers" class="w-5 h-5"></i> Explorar Iniciação SPI & Open Finance
         </a>
       </div>
 
@@ -231,68 +231,53 @@
     </div>
   </section>
 
-  <!-- Os 3 Pilares da Arquitetura -->
-  <section id="pilares" class="py-20 border-t border-mesh-border relative bg-mesh-card/30">
+  <!-- Os Dois Fluxos de Iniciação sob Área Única NeoGrid -->
+  <section id="dois-fluxos" class="py-20 border-t border-mesh-border relative bg-mesh-card/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs font-mono uppercase tracking-widest text-pix">Arquitetura de Alta Performance</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">A Tríade Tecnológica do NeoGrid</h2>
+        <span class="text-xs font-mono uppercase tracking-widest text-pix">Área Única NeoGrid</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Os Dois Fluxos de Iniciação NexaPay</h2>
         <p class="text-slate-400 mt-4 leading-relaxed">
-          Para suportar milhões de transações simultâneas com SLA de 99.999% e latência submilisegundo, o projeto é estruturado em três motores complementares:
+          Arquitetura integrada sob a camada única <strong>NeoGrid</strong>, viabilizando duas modalidades de execução sem intermediários de bandeira:
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <!-- Pilar 1: NeoCore -->
-        <div class="glass-card p-8 rounded-2xl relative group">
+        <!-- Fluxo 1: SPI pacs.008 Iniciação Delegada -->
+        <div class="glass-card p-8 rounded-2xl relative group border-pix/30">
           <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <i data-lucide="cpu" class="w-7 h-7"></i>
+            <i data-lucide="zap" class="w-7 h-7"></i>
           </div>
-          <span class="text-xs font-mono text-teal-400 tracking-wider uppercase font-semibold">Motor Transacional</span>
-          <h3 class="text-2xl font-bold text-white mt-1">NeoCore™</h3>
+          <span class="text-xs font-mono text-teal-400 tracking-wider uppercase font-semibold">Canal Direto SPI (Novidade)</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Iniciação Delegada via SPI (pacs.008)</h3>
           <p class="text-slate-400 text-sm mt-4 leading-relaxed">
-            O coração transacional responsável pela <strong>tokenização EMV/NFC</strong>, mapeamento dinâmico de chaves Pix e orquestração da liquidação no Sistema de Pagamentos Instantâneos (SPI).
+            O participante pagador habilitado recebe a prova criptográfica gerada no chip seguro do cartão e o contexto da operação. 
+            Após verificar a <strong>autorização delegada pré-registrada</strong> e efetuar o <strong>consumo durável do valor de frescor</strong> em memória local atômica, o nó pagador submete diretamente a mensagem <strong>pacs.008</strong> ao SPI BACEN, liquidando em D+0.
           </p>
           <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
-            <div>✓ ISO 8583 / ISO 20022 Protocol Bridge</div>
-            <div>✓ Token Vault & PAN Mapping</div>
-            <div>✓ Sub-second Clearing Engine</div>
+            <div>✓ ISO 20022 pacs.008 com identificador idempotente</div>
+            <div>✓ Resolução institucional via ISPB em diretório soberano</div>
+            <div>✓ Defesa anti-replay com consumo durável de frescor antes da submissão</div>
           </div>
         </div>
 
-        <!-- Pilar 2: NeoGrid Mesh -->
-        <div class="glass-card p-8 rounded-2xl relative group border-pix/30">
-          <div class="w-14 h-14 rounded-2xl bg-pix/10 border border-pix/30 text-pix flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <!-- Fluxo 2: Iniciação via Open Finance -->
+        <div class="glass-card p-8 rounded-2xl relative group border-cyan-500/30">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
             <i data-lucide="network" class="w-7 h-7"></i>
           </div>
-          <span class="text-xs font-mono text-pix tracking-wider uppercase font-semibold">Roteamento Distribuído</span>
-          <h3 class="text-2xl font-bold text-white mt-1">NeoGrid Mesh™</h3>
+          <span class="text-xs font-mono text-cyan-400 tracking-wider uppercase font-semibold">Canal Regulado Open Finance</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Iniciação via Open Finance (ITP)</h3>
           <p class="text-slate-400 text-sm mt-4 leading-relaxed">
-            Control plane descentralizado e roteador de borda com <strong>Dynamic Database Sharding</strong>. Isola tenants de alta volumetria (adquirentes e grandes emissores) mantendo alta disponibilidade.
+            Instrução padronizada encaminhada através de <strong>Iniciador de Transação de Pagamento (ITP)</strong> credenciado perante o ecossistema Open Finance Brasil.
+            O envelope autenticado com identificador opaco e prova assinada pelo elemento seguro é submetido à <strong>instituição detentora da conta pagadora</strong>, que liquida a ordem nos trilhos instantâneos.
           </p>
           <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
-            <div>✓ Edge Handshake via Supabase Deno</div>
-            <div>✓ Dynamic Search Path & Schema Shards</div>
-            <div>✓ Multi-region L5 Tenant Isolation</div>
-          </div>
-        </div>
-
-        <!-- Pilar 3: NeoGraph -->
-        <div class="glass-card p-8 rounded-2xl relative group">
-          <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <i data-lucide="shield-alert" class="w-7 h-7"></i>
-          </div>
-          <span class="text-xs font-mono text-sky-400 tracking-wider uppercase font-semibold">Confiança Invisível</span>
-          <h3 class="text-2xl font-bold text-white mt-1">NeoGraph™</h3>
-          <p class="text-slate-400 text-sm mt-4 leading-relaxed">
-            Grafo cognitivo de risco e telemetria comportamental. Avalia geolocalização, perfil de gasto, integridade do dispositivo e autenticação <strong>FIDO2 / Passkeys</strong> sem interromper a jornada.
-          </p>
-          <div class="mt-6 pt-6 border-t border-slate-800 text-xs text-slate-400 space-y-2 font-mono">
-            <div>✓ FIDO2 / WebAuthn Silent Challenge</div>
-            <div>✓ Ingestão Contínua de Heatmaps</div>
-            <div>✓ Real-time Behavioral Fraud Shield</div>
+            <div>✓ Padrão Open Finance Brasil (APIs /payments/v4)</div>
+            <div>✓ Vínculo criptográfico entre credencial física e consentimento do portador</div>
+            <div>✓ Sem exposição de dados biométricos brutos ou credenciais bancárias</div>
           </div>
         </div>
 
@@ -334,7 +319,7 @@
             <i data-lucide="split" class="w-5 h-5 text-mesh-accent"></i> Roteamento Mesh
           </h4>
           <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-            O <strong>NeoGrid Mesh™</strong> recebe a chamada via API/Adquirente, valida a chave de API criptografada e direciona a requisição ao Shard do emissor instantaneamente.
+            O <strong>NeoGrid</strong> recebe a chamada via API/Adquirente, valida a chave de API criptografada e direciona a requisição ao Shard do emissor instantaneamente.
           </p>
           <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Latência: ~30ms</span>
         </div>
@@ -343,10 +328,10 @@
         <div class="glass-card p-6 rounded-2xl relative">
           <div class="w-8 h-8 rounded-full bg-pix/20 text-pix font-mono font-bold flex items-center justify-center mb-4">3</div>
           <h4 class="font-bold text-white text-lg flex items-center gap-2">
-            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> NeoCore & NeoGraph
+            <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i> NeoGrid & NeoGrid
           </h4>
           <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-            O <strong>NeoCore</strong> destokeniza o identificador seguro enquanto o <strong>NeoGraph</strong> avalia os sinais de risco e biometria silenciosa, aprovando o pagamento.
+            O <strong>NeoGrid</strong> destokeniza o identificador seguro enquanto o <strong>NeoGrid</strong> avalia os sinais de risco e biometria silenciosa, aprovando o pagamento.
           </p>
           <span class="inline-block mt-4 px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-300">Latência: ~90ms</span>
         </div>
@@ -436,7 +421,7 @@
           </div>
 
           <pre id="consoleLogs" class="mt-4 text-slate-300 h-64 overflow-y-auto whitespace-pre-wrap leading-relaxed">
-[System] NeoGrid Mesh Edge Controller pronto.
+[System] NeoGrid Edge Controller pronto.
 [Config] Shard Alvo: shard_br_saopaulo_01
 [Config] BACEN SPI Mock Rails: Conectado
 [Status] Aguardando sinal contactless NFC...
@@ -503,7 +488,7 @@
           </div>
           <h4 class="font-bold text-white mt-4 text-base">Telemetria & Risco Contínuo</h4>
           <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-            Ingestão assíncrona de sinais comportamentais, latência e telemetria de POS para a inteligência de risco do NeoGraph.
+            Ingestão assíncrona de sinais comportamentais, latência e telemetria de POS para a inteligência de risco do NeoGrid.
           </p>
         </div>
 
@@ -576,14 +561,14 @@
 
       await new Promise(r => setTimeout(r, 600));
 
-      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGrid Mesh: Roteando para shard_br_saopaulo_01 (Tenant Auth)\n`;
-      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoCore: Token EMV validado. Chave Pix mapeada com sucesso.\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGrid: Roteando para shard_br_saopaulo_01 (Tenant Auth)\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGrid: Token EMV validado. Chave Pix mapeada com sucesso.\n`;
       posStatus.innerHTML = `<i data-lucide="cpu" class="w-4 h-4 text-teal-400 animate-spin"></i> Conectando ao Banco Central (SPI)...`;
       lucide.createIcons();
 
       await new Promise(r => setTimeout(r, 700));
 
-      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGraph: Score de risco 0.02 (Transação Segura / FIDO2 Tokenized)\n`;
+      logs.innerText += `[${new Date().toLocaleTimeString()}] NeoGrid: Score de risco 0.02 (Transação Segura / FIDO2 Tokenized)\n`;
       logs.innerText += `[${new Date().toLocaleTimeString()}] BACEN SPI: EndToEndId E00038166${Date.now()} gerado.\n`;
       logs.innerText += `[${new Date().toLocaleTimeString()}] Liquidação: R$ ${valor.toFixed(2)} transferido instantaneamente (D+0)!\n`;
 
