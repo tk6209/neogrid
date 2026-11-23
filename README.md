@@ -1,4 +1,4 @@
-# NeoGrid Cartão Pix 💳⚡
+# NeoGrid NexaPay 💳⚡
 
 > **A união da fluidez da aproximação (NFC/EMV) dos cartões físicos com a liquidação instantânea e baixo custo dos trilhos do Pix (Banco Central do Brasil).**
 
@@ -8,7 +8,7 @@
 
 No varejo físico atual, o Pix ainda enfrenta uma barreira de usabilidade: a dependência de desbloquear o smartphone, abrir o aplicativo bancário, escanear um QR Code e depender de sinal de dados móveis no checkout.
 
-O **NeoGrid Cartão Pix** remove essa fricção:
+O **NeoGrid NexaPay** remove essa fricção:
 - **Zero Fricção para o Consumidor**: Basta aproximar o cartão físico ou smartphone no leitor NFC do terminal POS convencional.
 - **Liquidação Instantânea D+0**: O lojista recebe os fundos imediatamente na conta via SPI (Sistema de Pagamentos Instantâneos).
 - **Redução Drástica em Taxas (MDR)**: Economia de até 70% comparado às taxas convencionais de débito e crédito das bandeiras tradicionais.
@@ -20,7 +20,7 @@ O **NeoGrid Cartão Pix** remove essa fricção:
 
 ```
 +-------------------------------------------------------------+
-|                     NeoGrid Cartão Pix                      |
+|                     NeoGrid NexaPay                      |
 +-------------------------------------------------------------+
            |                         |                       |
            v                         v                       v
