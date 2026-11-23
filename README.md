@@ -1,10 +1,10 @@
-# NeoGrid NexaPay 💳⚡
+# NeoGrid NexaPay
 
 > **Iniciação de pagamentos conta-a-conta por aproximação física (NFC) com prova criptográfica em módulo seguro e liquidação instantânea D+0 nos trilhos do SPI BACEN.**
 
 ---
 
-## 🌟 Visão Geral
+## Visão Geral
 
 No varejo físico atual, o Pix ainda enfrenta uma barreira de usabilidade: a dependência de desbloquear o smartphone, abrir o aplicativo bancário, escanear um QR Code e depender de sinal de dados móveis no checkout.
 
@@ -16,7 +16,7 @@ O **NeoGrid NexaPay** remove essa fricção através de uma arquitetura unificad
 
 ---
 
-## 🏛️ Área Única NeoGrid: Os Dois Fluxos de Iniciação
+## Área Única NeoGrid: Os Dois Fluxos de Iniciação
 
 A plataforma **NeoGrid** opera como uma camada única de iniciação e roteamento institucional, suportando duas modalidades complementares:
 
@@ -43,7 +43,7 @@ A requisição é estruturada pelo NeoGrid e submetida através de um **Iniciado
 
 ---
 
-## 🔒 Segurança Criptográfica & Resolução Soberana
+## Segurança Criptográfica & Resolução Soberana
 - **Chave Não Exportável**: O material criptográfico secreto reside no módulo seguro (EAL5+) e nunca é exposto ao terminal ou à rede.
 - **Resolução por ISPB**: A instituição pagadora é identificada pelo seu código de 8 dígitos (ISPB) resolvido em diretório soberano nacional, sem intermediários.
 - **Defesa Anti-Replay**: Consumo prévio e durável de frescor antes da submissão da ordem financeira.
@@ -51,7 +51,7 @@ A requisição é estruturada pelo NeoGrid e submetida através de um **Iniciado
 
 ---
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
 Como o projeto é construído em padrões web modernos e leves, basta abrir o arquivo `index.html` em qualquer navegador ou rodar um servidor HTTP local:
 
